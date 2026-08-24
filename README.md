@@ -9,7 +9,12 @@ Read in order:
 1. `docs/idea-lock.md` — locked claim, ELBO-crux resolution, scoop map.
 2. `docs/prereg-g0b.md` — FROZEN gate design and thresholds (guarded by tests).
 
-Layout: `src/dlmmem/` experiment code · `tests/` (stdlib unittest, no GPU) ·
+Layout: `src/dlmmem/` experiment code · `tests/` (no GPU needed) ·
 `data/` gate outputs (merge-only, never overwrite).
 
-Run tests: `python3 -m unittest discover -s tests -v`
+Managed with uv (pattern from the fertility-precision repo):
+```bash
+uv sync
+uv run dlmmem doctor    # import + GPU check
+uv run pytest -q        # capacity math + prereg guards
+```
