@@ -35,16 +35,16 @@ def main(argv=None) -> int:
     if not argv or argv[0] in ("-h", "--help"):
         print("usage: dlmmem {doctor|b0} [args...]\n"
               "  doctor  check installs + GPU\n"
-              "  b0      Stage B-0 runner (NOT IMPLEMENTED YET)")
+              "  b0      Stage B-0 runner (see `dlmmem b0 --help`)")
         return 0
-    cmd = argv[0]
+    cmd, rest = argv[0], argv[1:]
     if cmd == "doctor":
         return doctor()
     if cmd == "b0":
-        print("b0 runner not implemented yet — design frozen in "
-              "docs/prereg-g0b.md; capacity math lives in dlmmem.capacity.",
-              file=sys.stderr)
-        return 2
+        from .b0 import main as b0_main
+
+        b0_main(rest)
+        return 0
     print(f"unknown command: {cmd}", file=sys.stderr)
     return 2
 
