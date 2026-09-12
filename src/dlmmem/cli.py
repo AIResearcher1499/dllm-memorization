@@ -33,9 +33,10 @@ def doctor() -> int:
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     if not argv or argv[0] in ("-h", "--help"):
-        print("usage: dlmmem {doctor|b0} [args...]\n"
+        print("usage: dlmmem {doctor|b0|p0} [args...]\n"
               "  doctor  check installs + GPU\n"
-              "  b0      Stage B-0 runner (see `dlmmem b0 --help`)")
+              "  b0      Stage B-0 runner (see `dlmmem b0 --help`)\n"
+              "  p0      Pilot P0: AR vs MDM instrument probe (docs/pilot-p0.md)")
         return 0
     cmd, rest = argv[0], argv[1:]
     if cmd == "doctor":
@@ -44,6 +45,11 @@ def main(argv=None) -> int:
         from .b0 import main as b0_main
 
         b0_main(rest)
+        return 0
+    if cmd == "p0":
+        from .p0 import main as p0_main
+
+        p0_main(rest)
         return 0
     print(f"unknown command: {cmd}", file=sys.stderr)
     return 2

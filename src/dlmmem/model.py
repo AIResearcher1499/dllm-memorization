@@ -41,6 +41,7 @@ class GPTConfig:
     n_heads: int
     vocab: int = MODEL_VOCAB
     max_seq_len: int = SEQ_LEN + 1  # BOS + 64 data tokens
+    causal: bool = True  # False -> bidirectional skeleton for the MDM arm (mdm.py)
 
     def __post_init__(self):
         if self.d_model % self.n_heads:
@@ -58,6 +59,7 @@ class Block(nn.Module):
         self.mlp = nn.Sequential(nn.Linear(d, 4 * d, bias=False), nn.GELU(),
                                  nn.Linear(4 * d, d, bias=False))
         self.n_heads = cfg.n_heads
+        self.causal = cfg.causal
 
     def forward(self, x):
         b, t, d = x.shape
@@ -65,7 +67,7 @@ class Block(nn.Module):
         q, k, v = self.attn(h).split(d, dim=2)
         hd = d // self.n_heads
         q, k, v = (z.view(b, t, self.n_heads, hd).transpose(1, 2) for z in (q, k, v))
-        att = F.scaled_dot_product_attention(q, k, v, is_causal=True)
+        att = F.scaled_dot_product_attention(q, k, v, is_causal=self.causal)
         x = x + self.proj(att.transpose(1, 2).reshape(b, t, d))
         return x + self.mlp(self.ln2(x))
 
