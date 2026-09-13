@@ -9,11 +9,10 @@ ICML 2027 slot depending on the sibling gate (`../kv-allocation`).
 > 0.985 of the sub-capacity cell, MDM 0.885 (EST-1) / 0.891 (EST-2), estimator gap 0.7 %,
 > MDM/AR step ratio 1.3, extraction 0.91–1.00 (`docs/pilot-p0.md`, `data/p0_results.jsonl`).
 > Next: stage S on the 2×A6000 box in bf16 after 22 Sep (`data/b0_config_lock.json` S=64
-> conventions first). Earlier: novelty re-checked (capacity cell still empty;
+> conventions first). Novelty re-checked 2026-09-13 (capacity cell still empty;
 > extraction/MIA side densifying — see `docs/brief-2026-09-13.md`). MDM arm and the three
-> estimators implemented (`src/dlmmem/mdm.py`); pilot P0 specified (`docs/pilot-p0.md`),
-> pipeline smoke passed on MPS; the pilot cell itself has not been run. Cheapest path:
-> P0 → stage S → mini-G0, all $0 on the 2×A6000 box; cloud only buys calendar.
+> estimators live in `src/dlmmem/mdm.py`. Cheapest path: stage S → mini-G0, all $0 on the
+> 2×A6000 box; cloud only buys calendar.
 
 Read in order:
 1. `docs/idea-lock.md` — locked claim, ELBO-crux resolution, scoop map.
