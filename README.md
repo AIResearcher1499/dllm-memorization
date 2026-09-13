@@ -5,7 +5,11 @@ masked diffusion LMs vs matched AR models, including the ELBO-vs-exact-NLL compa
 analysis the field's AR-vs-MDM comparisons skipped. Target: arXiv-early + NeurIPS 2027, or the
 ICML 2027 slot depending on the sibling gate (`../kv-allocation`).
 
-> **Status 2026-09-13:** no data yet. Novelty re-checked (capacity cell still empty;
+> **Status 2026-09-13 (evening): P0 pilot run on the Mac (MPS) → CONTINUE.** AR memorizes
+> 0.985 of the sub-capacity cell, MDM 0.885 (EST-1) / 0.891 (EST-2), estimator gap 0.7 %,
+> MDM/AR step ratio 1.3, extraction 0.91–1.00 (`docs/pilot-p0.md`, `data/p0_results.jsonl`).
+> Next: stage S on the 2×A6000 box in bf16 after 22 Sep (`data/b0_config_lock.json` S=64
+> conventions first). Earlier: novelty re-checked (capacity cell still empty;
 > extraction/MIA side densifying — see `docs/brief-2026-09-13.md`). MDM arm and the three
 > estimators implemented (`src/dlmmem/mdm.py`); pilot P0 specified (`docs/pilot-p0.md`),
 > pipeline smoke passed on MPS; the pilot cell itself has not been run. Cheapest path:

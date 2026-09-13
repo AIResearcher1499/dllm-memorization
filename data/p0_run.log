@@ -1,0 +1,27 @@
+P0 s1 D=1024 seed=20260913 device=mps
+    step      500 mem~    0.709 Mbit loss  0.130     130s
+    step     1000 mem~    0.710 Mbit loss  0.116     258s
+    step     1500 mem~    0.710 Mbit loss  0.113     387s
+    step     2000 mem~    0.710 Mbit loss  0.111     515s
+    step     2500 mem~    0.710 Mbit loss  0.111     644s
+    step     3000 mem~    0.445 Mbit loss  2.968     772s
+    step     3500 mem~    0.709 Mbit loss  0.125     900s
+    step     4000 mem~    0.710 Mbit loss  0.116    1029s
+    step     4500 mem~    0.710 Mbit loss  0.113    1157s
+    step     5000 mem~    0.710 Mbit loss  0.113    1286s
+    [mdm] step     500 mem(elbo,k=8)~   320.3 kbit loss  270.40    134s
+    [mdm] step    1000 mem(elbo,k=8)~   537.8 kbit loss  134.64    267s
+    [mdm] step    1500 mem(elbo,k=8)~   602.5 kbit loss  106.62    401s
+    [mdm] step    2000 mem(elbo,k=8)~   621.2 kbit loss   91.35    534s
+    [mdm] step    2500 mem(elbo,k=8)~   624.5 kbit loss   84.89    668s
+    [mdm] step    3000 mem(elbo,k=8)~   585.9 kbit loss   78.09    802s
+    [mdm] step    3500 mem(elbo,k=8)~   648.4 kbit loss   71.02    936s
+    [mdm] step    4000 mem(elbo,k=8)~   609.0 kbit loss   67.61   1070s
+    [mdm] step    4500 mem(elbo,k=8)~   583.1 kbit loss   65.74   1203s
+    [mdm] step    5000 mem(elbo,k=8)~   620.4 kbit loss   61.40   1337s
+    [mdm] step    5500 mem(elbo,k=8)~   665.5 kbit loss   60.22   1471s
+    [mdm] step    6000 mem(elbo,k=8)~   605.7 kbit loss   57.38   1604s
+    [mdm] step    6500 mem(elbo,k=8)~   603.9 kbit loss   54.89   1738s
+AR : mem 0.985 of ref, steps 5000, prefix-extract 1.00
+MDM: mem est1 0.885 / est2 0.891 of ref, steps 6500/50000, extract {'prefix_lr': 0.90625, 'prefix_conf': 1.0, 'edge_lr': 0.9453125, 'edge_conf': 0.99609375}
+verdict: CONTINUE to stage S (see docs/pilot-p0.md) (gap 0.007, step ratio 1.3)

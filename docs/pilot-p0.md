@@ -58,6 +58,29 @@ CONTINUE. Estimator noise at init (untrained model, CE ≈ 7.6 nats): EST-1 per-
 std ≈ ±30 bits at K=128, mean unbiased (703.7 vs 704.0); noise vanishes as CE → 0.
 The pilot cell (D=1024, K=128, full extraction set) has **not** been run.
 
+## P0 run (2026-09-13, Mac M4 Pro, MPS, fp32)
+
+`uv run dlmmem p0 --device mps` — one cell, defaults as above; record appended to
+`data/p0_results.jsonl`. Wall-clock: AR 1,286 s (5,000 steps; converged by the registered
+criterion), MDM 1,738 s (6,500 steps; converged; cap was 50,000).
+
+| | AR arm | MDM arm |
+|---|---|---|
+| memorized / 0.72 Mbit ref | **0.985** (exact NLL) | **EST-1 0.885 · EST-2 0.891** (rel. gap 0.007) |
+| bits per non-emb param | 0.80 | 0.72 (EST-2) |
+| steps to plateau | 5,000 | 6,500 (ratio 1.3×) |
+| extraction (EST-3) | prefix-32 L→R 1.00 | prefix-32 L→R 0.91 · conf 1.00; edge-16/16 L→R 0.95 · conf 1.00 |
+
+**Verdict (`p0.verdict`): CONTINUE to stage S.** (1) AR memorizes the sub-capacity cell →
+pipeline sane; (2) MDM memorizes 90 % of the AR arm's bits within the cap → the masking
+objective reaches a plateau where AR does; (3) EST-1/EST-2 agree to 0.7 % → the ELBO
+bound and the induced-AR exact NLL are interchangeable at this scale.
+
+Noted, not gated: the MDM plateau sits ≈ 10 % below AR at identical N and |D| (0.885 vs
+0.985 of ref; 0.72 vs 0.80 bits/param) — the first hint of the contrast the grids will
+measure with seeds; confidence-order extraction recovers what left-to-right misses. P0 was
+run on MPS in fp32 (the prereg's bf16 applies to the grids on CUDA).
+
 ## After P0
 
 CONTINUE → record the S=64 masking/padding conventions and the params axis in
